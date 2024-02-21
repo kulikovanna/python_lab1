@@ -27,6 +27,18 @@ def min_natural_number(input_string):
     else:
         return None
 
+# Найти максимальное количество идущих подряд цифр в строке
+def max_digit_order(input_string):
+    max_count = 0
+    count = 0
+    for char in input_string:
+        if char.isdigit():
+            count += 1
+            max_count = max(max_count, count)
+        else:
+            count = 0
+    return max_count
+
 print("Выберите задачу:")
 print("1. Найти наибольшее количество идущих подряд символов кириллицы")
 print("2. Найти минимальное натуральное число в строке")
@@ -43,6 +55,10 @@ elif choice == '2':
     result = min_natural_number(input_string)
     if result is not None:
         print("Минимальное натуральное число в строке:", result)
+elif choice == '3':
+    input_string = input("Введите строку: ")
+    result = max_digit_order(input_string)
+    print("Максимальное количество идущих подряд цифр в строке:", result)
 else:
     print("Некорректный выбор задачи.")
 
