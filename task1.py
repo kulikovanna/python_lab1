@@ -25,3 +25,31 @@ def find_min_odd_digit(number):
 number = int(input("Введите число: "))
 result = find_min_odd_digit(number)
 print("Минимальная нечетная цифра: ", result)
+
+# Функция 3: Найти сумму всех делителей числа, взаимно простых с
+# суммой цифр числа и не взаимно простых с произведением цифр числа
+from math import gcd
+def sum_of_divisors_with_conditions(number):
+    # Считаем сумму
+    digit_sum = sum(int(digit) for digit in str(number))
+
+    # Считаем произведение
+    digit_product = 1
+    for digit in str(number):
+        digit_product *= int(digit)
+
+    # сумма делителей
+    divisor_sum = 0
+
+    for i in range(1, number + 1):
+        # проверяем, является ли текущее число делителем number
+        if number % i == 0:
+            # Проверяем условия взаимной простоты и добавляем число к сумме делителей, если условия выполняются
+            if gcd(i, digit_sum) == 1 and gcd(i, digit_product) != 1:
+                divisor_sum += i
+
+    return divisor_sum
+
+number = int(input("Введите число: "))
+result = sum_of_divisors_with_conditions(number)
+print("Сумма всех делителей числа в указанных условиях равна: ", result)
