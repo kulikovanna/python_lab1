@@ -12,8 +12,20 @@ def max_cyrillic_order(input_string):
 
     return max_count
 
-
-
+# Найти минимальное натуральное число в строке
+def min_natural_number(input_string):
+    numbers = []
+    current_number = ""
+    for char in input_string:
+        if char.isdigit(): # явл. ли цифрой
+            current_number += char
+        elif current_number: # есть ли непустое число
+            numbers.append(int(current_number))
+            current_number = "" # сброс
+    if numbers:
+        return min(numbers)
+    else:
+        return None
 
 print("Выберите задачу:")
 print("1. Найти наибольшее количество идущих подряд символов кириллицы")
@@ -26,5 +38,11 @@ if choice == '1':
     input_string = input("Введите строку: ")
     result = max_cyrillic_order(input_string)
     print("Наибольшее количество идущих подряд символов кириллицы:", result)
+elif choice == '2':
+    input_string = input("Введите строку: ")
+    result = min_natural_number(input_string)
+    if result is not None:
+        print("Минимальное натуральное число в строке:", result)
 else:
     print("Некорректный выбор задачи.")
+
