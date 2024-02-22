@@ -44,11 +44,24 @@ def positive_divisors(numbers):
     # а затем преобразуем его обратно в список и возвр результат
     return list(set(all_divisors))
 
+# 59 Дан список. Построить новый список из квадратов неотрицательных
+# чисел, меньших 100 и встречающихся в массиве больше 2 раз.
+def square_occurrences(numbers):
+    squares = []
+    processed = set()  # мн-во для обработанных чисел
+    for num in numbers:
+        if num >= 0 and num < 100 and numbers.count(num) > 1 and num not in processed:
+            squares.append(num ** 2)  # добавляем квадрат числа в список
+            processed.add(num)  # добавляем число в множество обработанных, чтобы не добавлять его квадрат еще раз
+    return squares
+
+
 print("Выберите задачу:")
 print("1. Найти уникальный элемент в массиве, где все элементы, кроме одного, повторяются.")
 print("2. Дан целочисленный массив. Необходимо найти два наименьших элемента.")
 print("3. Найти элемент массива, наиболее близкий к заданному числу R.")
 print("4. Найти все положительные делители элементов списка.")
+print("5. Дан список. Построить новый список из квадратов неотрицательных чисел, меньших 100 и встречающихся в массиве больше 2 раз.")
 
 choice = input("Введите номер задачи: ")
 
@@ -77,3 +90,9 @@ elif choice == '4':
     numbers = list(map(int, input_numbers.split()))
     divisors = positive_divisors(numbers)
     print("Положительные делители элементов списка без повторений:", divisors)
+elif choice == '5':
+    print("Введите элементы списка через пробел: ", end="")
+    input_numbers = input()
+    numbers = list(map(int, input_numbers.split()))
+    squares = square_occurrences(numbers)
+    print("Новый список из квадратов чисел, которые встречаются в массиве больше двух раз и меньше 100:", squares)
