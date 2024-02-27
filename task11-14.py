@@ -27,10 +27,31 @@ def sort_by_median_length(strings): #медиана длин строк
     return sorted(strings, key=lambda x: (abs(len(x) - median), x)) # Lambda-функция принимает аргумент x и возвращает кортеж,
     # содержащий разницу между длиной строки x и медианой
 
+# В порядке увеличения квадратичного отклонения между наибольшим
+# ASCII-кодом символа строки и разницы в ASCII-кодах пар зеркально
+# расположенных символов строки (относительно ее середины).
+
+# ord - числовое представление символа в коде Unicode или ASCII.
+def square_deviation(string):
+    mid = len(string) // 2 # середина строки
+    # макс код символа строки
+    max_ascii = max(ord(char) for char in string)
+    # список разницы в кодах пар зеркально расположенных символов относительно середины строки
+    mirror_pairs = [abs(ord(string[i]) - ord(string[-i - 1])) for i in range(mid)]
+    # квадратичное отклонение
+    deviation = sum((pair - max_ascii) ** 2 for pair in mirror_pairs)
+
+    print( f"Строка: {string}, Максимальный ASCII-код: {max_ascii}, Зеркальные пары: {mirror_pairs}, Отклонение: {deviation}")
+    return deviation
+
+def sort_by_deviation(strings):
+    return sorted(strings, key=square_deviation)
+
 
 print("Выберите задачу:")
 print("1. Отсортировать: В порядке увеличения среднего веса ASCII-кода символа строки.")
 print("2. Отсортировать: В порядке увеличения медианного значения выборки строк.")
+print("3. Отсортировать: В порядке увеличения квадратичного отклонения между наибольшим ASCII-кодом символа строки и разницы в ASCII-кодах пар зеркально расположенных символов (относительно ее середины).")
 
 choice = input("Введите номер задачи: ")
 
@@ -46,3 +67,9 @@ elif choice == '2':
     strings = input_string.split()
     sorted_strings = sort_by_median_length(strings)
     print("Отсортированные в порядке увеличения медианного значения выборки строк:", ' '.join(sorted_strings))
+elif choice == '3':
+    print("Введите строки через пробел: ", end="")
+    input_string = input()
+    strings = input_string.split()
+    sorted_strings = sort_by_deviation(strings)
+    print("Отсортированные в порядке увеличения квадратичного отклонения между наибольшим ASCII-кодом символа строки и разницы в ASCII-кодах пар зеркально расположенных символов (относительно ее середины):", ' '.join(sorted_strings))
