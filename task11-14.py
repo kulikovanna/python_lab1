@@ -47,12 +47,23 @@ def square_deviation(string):
 def sort_by_deviation(strings):
     return sorted(strings, key=square_deviation)
 
+#В порядке увеличение встречаемости самого распространенного символа
+# в наборе строк от частоты его встречаемости в данной строке.
+
+def max_char_count(string):
+    # вычисления частоты наиболее часто встречающегося символа в строке
+    max_char = max(set(string), key=string.count)
+    return string.count(max_char)
+def sort_by_frequency(strings):
+    # cортировки строк по частоте наличия наиболее часто встречающегося символа.
+    sorted_strings = sorted(strings, key=max_char_count)
+    return sorted_strings
 
 print("Выберите задачу:")
 print("1. Отсортировать: В порядке увеличения среднего веса ASCII-кода символа строки.")
 print("2. Отсортировать: В порядке увеличения медианного значения выборки строк.")
 print("3. Отсортировать: В порядке увеличения квадратичного отклонения между наибольшим ASCII-кодом символа строки и разницы в ASCII-кодах пар зеркально расположенных символов (относительно ее середины).")
-
+print("4. Остортировать: В порядке увеличение встречаемости самого распространенного символа в наборе строк от частоты его встречаемости в данной строке.")
 choice = input("Введите номер задачи: ")
 
 if choice == '1':
@@ -73,3 +84,9 @@ elif choice == '3':
     strings = input_string.split()
     sorted_strings = sort_by_deviation(strings)
     print("Отсортированные в порядке увеличения квадратичного отклонения между наибольшим ASCII-кодом символа строки и разницы в ASCII-кодах пар зеркально расположенных символов (относительно ее середины):", ' '.join(sorted_strings))
+elif choice == '4':
+    print("Введите строки через пробел: ", end="")
+    input_string = input()
+    strings = input_string.split()
+    sorted_strings = sort_by_frequency(strings)
+    print("Отсортированные в порядке увеличения встречаемости самого распространенного символа в наборе строк от частоты его встречаемости в данной строке:",' '.join(sorted_strings))
